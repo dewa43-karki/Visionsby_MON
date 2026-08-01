@@ -105,3 +105,13 @@ span{
 .hidden{
     display: none;
 }
+
+
+/* discription */
+.description{
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
