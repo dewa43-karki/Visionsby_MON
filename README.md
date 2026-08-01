@@ -4,7 +4,7 @@ A shopping website built to practice web development.
 
 ## How to View
 
-[🌐 Visit Website](https://dewa43-karki.github.io/Visions_By_MON/)
+[🌐 Visit Website](https://dewa43-karki.github.io/Visionsby_MON/)
 
 ## What I Built
 
