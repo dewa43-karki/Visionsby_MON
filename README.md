@@ -17,7 +17,7 @@ A shopping website built to practice web development.
 - Product image gallery
 - Order confirmation pop-up
 
-## Tech Used
+## Tech Usedgit add README.md
 
 - HTML, CSS, JavaScript, PHP
 

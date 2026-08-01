@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visionsby_MON</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+<body>
+    <div class="left-menu">
+        <aside class="left-side">
+            <div class="store"> Visionsby_MON </div>
+            <div id="icons">
+                <span title="Home">
+                    <a href="#" aria-label="Home">
+                        <i class="fa-solid fa-house" style="color: rgb(49, 50, 51);"></i>
+                    </a>
+                </span>
+                <span title="Account">
+                    <a href="#" aria-label="Account">
+                        <i class="fa-regular fa-user" style="color: rgb(49, 50, 51);"></i>
+                    </a>
+                </span>
+                <span title="Cart">
+                    <a href="#" aria-label="Cart">
+                        <i class="fa-solid fa-cart-shopping" style="color: rgb(49, 50, 51);"></i>
+                    </a>
+                </span>
+            </div>
+        </aside>
+
+    </div>
+
+    <div class="main-section">
+       <header class="hero">
+           <div class="hero-image">
+              <img src="images/hero.png" alt="Hero Image">
+           </div>
+       </header> 
+
+       <div class="panel">
+          <div class="tabs">
+             <button class="tab active" data-tab="instock">In-Stock Items</button>
+             <button class="tab" data-tab="comingsoon">Comingsoon</button>
+             <button class="tab" data-tab="explore">Explore</button>
+             <button class="tab" data-tab="customize">Customize</button>
+          </div>
+       </div>
+
+       <div class="tab-content">
+         <div class="content-panel"  id="instock"></div>
+         <div class="content-panel hidden" id="comingsoon"></div>
+         <div class="content-panel hidden" id="explore"></div>
+         <div class="content-panel hidden" id="customize"></div>
+       </div>
+
+       <div id="dis-box" class="discription" aria-hidden="true">
+         <div class="info">
+            <button class="close" id="dis-Close">✕</button>
+            <div class="info-Body">
+                <div class="carousel">
+                  <button class="carousel-btn left" id="prevImg">‹</button>
+                  <div class="carousel-track" id="carouselTrack"></div>
+                  <button class="carousel-btn right" id="nextImg">›</button>
+                </div>
+            </div>
+         </div>
+       </div>
+
+
+    </div> 
+    <script src="script.js"></script>    
+</body>
+</html>
