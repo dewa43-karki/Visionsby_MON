@@ -56,19 +56,30 @@
        </div>
 
        <div id="dis-box" class="discription" aria-hidden="true">
-         <div class="info">
-            <button class="close" id="dis-Close">✕</button>
-            <div class="info-Body">
-                <div class="carousel">
-                  <button class="carousel-btn left" id="prevImg">‹</button>
-                  <div class="carousel-track" id="carouselTrack"></div>
-                  <button class="carousel-btn right" id="nextImg">›</button>
-                </div>
-            </div>
-         </div>
+          <div class="grid-img"></div>
+         <div class="info hidden">
+             <button class="close" id="dis-Close">✕</button>
+             <div class="info-Body">
+                 <div class="carousel">
+                     <button class="carousel-btn left" id="prevImg">‹</button>
+                     <div class="carousel-track" id="carouselTrack"></div>
+                     <button class="carousel-btn right" id="nextImg">›</button>
+                 </div>
+                 <div class="info-order">
+                     <label> Name:
+                         <input  type="text" placeholder="Name" id="name" required>
+                     </label>
+                     <label>Address:
+                         <input type="text" placeholder="Address" id="address" required>
+                     </label>
+                     <label>Phone Number:
+                         <input type="number" placeholder="Phone Number" id="phone" required>
+                     </label>
+                     <button id="orderBtn">Order Now</button>
+                 </div>
+              </div>
+           </div>
        </div>
-
-
     </div> 
     <script src="script.js"></script>    
 </body>
