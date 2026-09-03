@@ -18,7 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 // Serve static frontend assets (HTML, CSS, JS, Images)
-const clientPath = path.resolve(__dirname, '../client');
+const clientPath = path.resolve(__dirname, '..');
 app.use(express.static(clientPath));
 
 // Configure Mongoose to not hang on queries when disconnected

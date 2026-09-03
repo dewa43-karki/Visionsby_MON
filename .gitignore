@@ -1,12 +1,1 @@
-# Node modules
-node_modules/
-server/node_modules/
-client/node_modules/
-
-# Environment files
-.env
-server/.env
-
-# Logs & temp files
-*.log
-npm-debug.log*
+node_modules
