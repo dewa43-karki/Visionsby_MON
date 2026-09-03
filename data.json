@@ -8,10 +8,10 @@
       "quantity": 10,
       "category": "instock",
       "images": [
-        "images/astro.png",
-        "images/astro1.png",
-        "images/ASTRO3.png",
-        "images/ast3.png"
+        "images/Instock_items/astro.png",
+        "images/Instock_items/astro1.png",
+        "images/Instock_items/ASTRO3.png",
+        "images/Instock_items/ast3.png"
       ],
       "sizes": [
         { "size": "M", "stock": 5 },
@@ -27,8 +27,8 @@
       "quantity": 25,
       "category": "instock",
       "images": [
-        "images/ruffle.png",
-        "images/ruffle3.png"
+        "images/Instock_items/ruffle.png",
+        "images/Instock_items/ruffle3.png"
       ],
       "sizes": [
         { "size": "S", "stock": 7 },
@@ -45,8 +45,8 @@
       "quantity": 5,
       "category": "instock",
       "images": [
-        "images/flow1.png",
-        "images/flow2.png"
+        "images/Instock_items/flow1.png",
+        "images/Instock_items/flow2.png"
       ],
       "sizes": [
         { "size": "L", "stock": 2 },
@@ -62,9 +62,9 @@
       "quantity": 3,
       "category": "instock",
       "images": [
-        "images/butter.png",
-        "images/butter2.png",
-        "images/buttwe4.png"
+        "images/Instock_items/butter.png",
+        "images/Instock_items/butter2.png",
+        "images/Instock_items/buttwe4.png"
       ],
       "sizes": [
         { "size": "S", "stock": 0 },
@@ -79,9 +79,9 @@
       "quantity": 9,
       "category": "instock",
       "images": [
-        "images/sleevee4.jpeg",
-        "images/sleevee.jpeg",
-        "images/sleevee5.jpeg"
+        "images/Instock_items/sleevee4.jpeg",
+        "images/Instock_items/sleevee.jpeg",
+        "images/Instock_items/sleevee5.jpeg"
       ],
       "sizes": [
         { "size": "S", "stock": 2 },
@@ -97,10 +97,10 @@
       "quantity": 5,
       "category": "instock",
       "images": [
-        "images/whitedress.jpeg",
-        "images/whitedress1.jpeg",
-        "images/whitedress2.jpeg",
-        "images/whitedress3.jpeg"
+        "images/Instock_items/whitedress.jpeg",
+        "images/Instock_items/whitedress1.jpeg",
+        "images/Instock_items/whitedress2.jpeg",
+        "images/Instock_items/whitedress3.jpeg"
       ],
       "sizes": [
         { "size": "M", "stock": 2 },
@@ -116,10 +116,10 @@
       "quantity": 16,
       "category": "instock",
       "images": [
-        "images/meshlesh.jpeg",
-        "images/meshlesh1.jpeg",
-        "images/meshlesh2.jpeg",
-        "images/meshlesh4.jpeg"
+        "images/Instock_items/meshlesh.jpeg",
+        "images/Instock_items/meshlesh1.jpeg",
+        "images/Instock_items/meshlesh2.jpeg",
+        "images/Instock_items/meshlesh4.jpeg"
       ],
       "sizes": [
         { "size": "Free Size", "stock": 16 }
@@ -133,10 +133,10 @@
       "quantity": 5,
       "category": "instock",
       "images": [
-        "images/leg.png",
-        "images/leg1.png",
-        "images/leg2.png",
-        "images/leg4.png"
+        "images/Instock_items/leg.png",
+        "images/Instock_items/leg1.png",
+        "images/Instock_items/leg2.png",
+        "images/Instock_items/leg4.png"
       ],
       "sizes": [
         { "size": "M", "stock": 1 },
@@ -152,9 +152,9 @@
       "quantity": 7,
       "category": "instock",
       "images": [
-        "images/hearttop.jpeg",
-        "images/hearttop1.jpeg",
-        "images/hearttop2.jpeg"
+        "images/Instock_items/hearttop.jpeg",
+        "images/Instock_items/hearttop1.jpeg",
+        "images/Instock_items/hearttop2.jpeg"
       ],
       "sizes": [
         { "size": "S", "stock": 4 },
@@ -170,9 +170,9 @@
       "quantity": 5,
       "category": "instock",
       "images": [
-        "images/bowtop.jpeg",
-        "images/bowtop2.jpeg",
-        "images/bowtop3.jpeg"
+        "images/Instock_items/bowtop.jpeg",
+        "images/Instock_items/bowtop2.jpeg",
+        "images/Instock_items/bowtop3.jpeg"
       ],
       "sizes": [
         { "size": "Free Size", "stock": 5 }
@@ -186,8 +186,8 @@
       "quantity": 5,
       "category": "instock",
       "images": [
-        "images/boot2.jpeg",
-        "images/boott3.jpeg"
+        "images/Instock_items/boot2.jpeg",
+        "images/Instock_items/boott3.jpeg"
       ],
       "sizes": [
         { "size": "L", "stock": 3 },
@@ -202,9 +202,9 @@
       "quantity": 3,
       "category": "instock",
       "images": [
-        "images/bow-tietop1.jpeg",
-        "images/bow-tietop2.jpeg",
-        "images/bow-tietop3.jpeg"
+        "images/Instock_items/bow-tietop1.jpeg",
+        "images/Instock_items/bow-tietop2.jpeg",
+        "images/Instock_items/bow-tietop3.jpeg"
       ],
       "sizes": [
         { "size": "M", "stock": 1 },

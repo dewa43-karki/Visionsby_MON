@@ -32,8 +32,3 @@ tabs.forEach(tab => {
     panels.forEach(panel => panel.classList.toggle('hidden', panel.id !== tab.dataset.tab));
   });
 });
-
-let info= document.querySelector(".info");
-info.onclick= () => {
-    info.classList.remove(hide);
-}
