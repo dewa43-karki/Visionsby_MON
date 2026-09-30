@@ -60,7 +60,6 @@ npm run dev
 ### Running Components Individually
 
 **Backend Server (Port 5000)**:
-
 ```bash
 cd server
 npm install
@@ -68,7 +67,6 @@ npm run dev
 ```
 
 **Frontend Client (Port 3000)**:
-
 ```bash
 cd client
 npm run dev
@@ -98,8 +96,11 @@ FROM_EMAIL=nitinmehra8834@gmail.com
 MONGODB_URI=your_mongodb_connection_string
 ```
 
+---
+
 ## 🛠️ Tech Stack
 
 - **Frontend**: HTML5, CSS3, JavaScript (ES6+), FontAwesome Icons
 - **Backend**: Node.js, Express.js, Nodemailer, JWT, Bcrypt
 - **Database**: MongoDB Atlas / Mongoose ORM
+

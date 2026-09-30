@@ -1,0 +1,9 @@
+{
+  "name": "visionsby_mon_frontend",
+  "version": "1.0.0",
+  "description": "Visionsby_MON Frontend Client Application",
+  "scripts": {
+    "start": "npx serve -l 3000",
+    "dev": "npx serve -l 3000"
+  }
+}

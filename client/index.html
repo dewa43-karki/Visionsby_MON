@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visionsby_MON | Luxury Fashion & Clothing Boutique</title>
+    <meta name="description"
+        content="Visionsby_MON - Exclusive online clothing boutique. Shop high-end in-stock apparel, upcoming pre-orders, aesthetic lookbooks, and interactive custom clothing studio.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+    <!-- Mobile Navigation Header -->
+    <div class="mobile-header">
+        <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Toggle navigation menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="mobile-brand" onclick="switchTab('instock')">Visionsby_MON</div>
+        <div class="mobile-actions">
+            <button class="login-btn-pill" id="mobileLoginBtn" aria-label="Sign In / Register">
+                <i class="fa-solid fa-right-to-bracket"></i> Sign In
+            </button>
+            <button class="icon-btn" id="mobileWishlistBtn" aria-label="Open Wishlist">
+                <i class="fa-regular fa-heart"></i>
+                <span class="badge wishlist-count">0</span>
+            </button>
+            <button class="icon-btn" id="mobileCartBtn" aria-label="Open Shopping Bag">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="badge cart-count">0</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-menu" id="leftMenu">
+        <div class="store" onclick="switchTab('instock')">Visionsby_MON</div>
+        <div class="store-tagline">HAUTE COUTURE</div>
+
+        <nav class="nav-icons" id="icons">
+            <a href="#" class="nav-item active" id="homeNavBtn" data-tab-target="instock" title="Home Collection">
+                <i class="fa-solid fa-house"></i>
+                <span class="nav-text">Home</span>
+            </a>
+            <a href="#" class="nav-item" id="wishlistTrigger" title="Wishlist">
+                <i class="fa-regular fa-heart"></i>
+                <span class="nav-text">Wishlist</span>
+                <span class="badge wishlist-count">0</span>
+            </a>
+            <a href="#" class="nav-item" id="cartTrigger" title="Shopping Bag">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="nav-text">Bag</span>
+                <span class="badge cart-count">0</span>
+            </a>
+            <a href="#" class="nav-item" id="accountTrigger" title="My Account">
+                <i class="fa-regular fa-user"></i>
+                <span class="nav-text" id="accountNavText">Account</span>
+            </a>
+            <a href="#" class="nav-item hidden" id="adminNavBtn" title="Admin Inventory Manager">
+                <i class="fa-solid fa-user-gear"></i>
+                <span class="nav-text">Admin Panel</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-categories">
+            <div class="sidebar-heading">Apparel Categories</div>
+            <ul class="cat-list">
+                <li><a href="#" data-cat="all" class="cat-link active"><i class="fa-solid fa-layer-group"></i> All
+                        Apparel</a></li>
+                <li><a href="#" data-cat="hoodie" class="cat-link"><i class="fa-solid fa-shirt"></i> Hoodies &
+                        Sweats</a></li>
+                <li><a href="#" data-cat="jacket" class="cat-link"><i class="fa-solid fa-vest"></i> Jackets & Coats</a>
+                </li>
+                <li><a href="#" data-cat="dress" class="cat-link"><i class="fa-solid fa-person-dress"></i> Dresses &
+                        Skirts</a></li>
+                <li><a href="#" data-cat="shirt" class="cat-link"><i class="fa-solid fa-shirt"></i> Shirts & Tops</a>
+                </li>
+                <li><a href="#" data-cat="pants" class="cat-link"><i class="fa-solid fa-user-ninja"></i> Trousers &
+                        Pants</a></li>
+                <li><a href="#" data-cat="accessories" class="cat-link"><i class="fa-solid fa-bag-shopping"></i>
+                        Accessories</a></li>
+            </ul>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="promo-badge"><i class="fa-solid fa-sparkles"></i> Free Express Shipping Over Rs 2,000</div>
+            <div class="copyright">&copy; 2026 Visionsby_MON</div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-section">
+        <!-- Hero Header -->
+        <header class="hero">
+            <div class="hero-card">
+                <div class="hero-image-wrap">
+                    <img src="images/hero.png" alt="Visionsby_MON Luxury Collection Hero" id="heroImage">
+                    <div class="hero-overlay">
+                        <span class="hero-subtitle">AUTUMN COUTURE 2026</span>
+                        <h1 class="hero-title">Elevate Your Vision</h1>
+                        <p class="hero-desc">Discover signature oversized silhouettes, tailored linen, and bespoke
+                            customizable apparel crafted for modern luxury.</p>
+                        <div class="hero-actions">
+                            <button class="hero-btn primary" id="heroShopBtn"><i class="fa-solid fa-bag-shopping"></i>
+                                Shop Collection</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Controls Toolbar (Search & Filter) -->
+        <div class="panel toolbar-panel">
+            <div class="tabs-header">
+                <div class="tabs" role="tablist">
+                    <button class="tab active" data-tab="instock" role="tab"><i class="fa-solid fa-bag-shopping"></i>
+                        In-Stock Items</button>
+                    <button class="tab" data-tab="comingsoon" role="tab"><i class="fa-regular fa-clock"></i> Coming
+                        Soon</button>
+                    <button class="tab" data-tab="explore" role="tab"><i class="fa-regular fa-compass"></i> Explore
+                        Lookbook</button>
+                </div>
+
+                <div class="filter-controls">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="searchInput" placeholder="Search tops, pants, dresses..."
+                            aria-label="Search clothing catalog">
+                        <button class="clear-search hidden" id="clearSearch"
+                            aria-label="Clear search text">&times;</button>
+                    </div>
+                    <div class="select-wrapper">
+                        <select id="sortSelect" aria-label="Sort garments">
+                            <option value="featured">Sort: Featured</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="rating">Highest Rated</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content Sections -->
+        <div class="tab-content">
+            <!-- 1. In-Stock Items Panel -->
+            <section class="content-panel" id="instock" role="tabpanel">
+                <div class="active-filter-bar hidden" id="activeFilterBar">
+                    <span id="filterSummaryText">Showing items</span>
+                    <button id="resetFiltersBtn"><i class="fa-solid fa-xmark"></i> Clear Filters</button>
+                </div>
+                <div class="product-grid" id="instockGrid">
+                    <!-- Dynamic Product Cards injected via JavaScript -->
+                </div>
+            </section>
+
+            <!-- 2. Coming Soon Panel -->
+            <section class="content-panel hidden" id="comingsoon" role="tabpanel">
+                <div class="section-intro">
+                    <h2><i class="fa-regular fa-clock"></i> Upcoming Drops & Exclusive Pre-Orders</h2>
+                    <p>Reserve upcoming couture drops before public release. Pre-order today with guaranteed priority
+                        dispatch.</p>
+                </div>
+                <div class="product-grid" id="comingsoonGrid">
+                    <!-- Dynamic Pre-Order Cards -->
+                </div>
+            </section>
+
+            <!-- 3. Explore Lookbook Panel -->
+            <section class="content-panel hidden" id="explore" role="tabpanel">
+                <div class="section-intro">
+                    <h2><i class="fa-regular fa-compass"></i> Visions Lookbook 2026</h2>
+                    <p>Explore curated styling guides, capsule outfit combinations, and aesthetic couture fashion
+                        spreads.</p>
+                </div>
+                <div class="lookbook-grid" id="exploreGrid">
+                    <!-- Dynamic Lookbook Cards -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Product Details Modal (#dis-box) -->
+    <div id="dis-box" class="discription hidden" aria-hidden="true" role="dialog">
+        <div class="info">
+            <button class="close" id="dis-Close" aria-label="Close product modal">✕</button>
+            <div class="info-Body">
+                <!-- Left: Carousel Column -->
+                <div class="carousel-column">
+                    <div class="carousel">
+                        <button class="carousel-btn left" id="prevImg" aria-label="Previous image">‹</button>
+                        <div class="carousel-track" id="carouselTrack">
+                            <!-- Dynamic image slides -->
+                        </div>
+                        <button class="carousel-btn right" id="nextImg" aria-label="Next image">›</button>
+                    </div>
+                    <div class="carousel-thumbs" id="carouselThumbs">
+                        <!-- Thumbnail images -->
+                    </div>
+                </div>
+
+                <!-- Right: Details & Purchase Options -->
+                <div class="product-details-column">
+                    <div class="modal-category-tag" id="modalCategory">HOODIE</div>
+                    <h2 class="modal-title" id="modalTitle">Oversized Pastel Fleece Hoodie</h2>
+                    <div class="modal-rating">
+                        <div class="stars">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                        <span class="rating-text" id="modalRatingText">4.9 (142 reviews)</span>
+                    </div>
+
+                    <div class="modal-price-wrap">
+                        <span class="modal-price" id="modalPrice">$89.00</span>
+                        <span class="modal-old-price" id="modalOldPrice">$115.00</span>
+                        <span class="stock-status in-stock" id="modalStockStatus"><i
+                                class="fa-solid fa-check-circle"></i> In Stock</span>
+                    </div>
+
+                    <p class="modal-description" id="modalDescription">
+                        Crafted from heavyweight 450gsm organic cotton blend with a soft fleece interior. Designed for a
+                        signature relaxed silhouette with drop shoulders.
+                    </p>
+
+                    <!-- Color Options -->
+                    <div class="option-section">
+                        <label class="option-label">Color: <span id="selectedColorName">Soft Pink</span></label>
+                        <div class="modal-colors" id="modalColors">
+                            <!-- Swatches -->
+                        </div>
+                    </div>
+
+                    <!-- Size Picker -->
+                    <div class="option-section">
+                        <div class="option-header">
+                            <label class="option-label">Size: <span id="selectedSizeName">M</span></label>
+                            <button class="size-guide-trigger" id="sizeGuideBtn"><i
+                                    class="fa-solid fa-ruler-combined"></i> Size Guide</button>
+                        </div>
+                        <div class="modal-sizes" id="modalSizes">
+                            <!-- Size buttons -->
+                        </div>
+                    </div>
+
+                    <!-- Quantity & Action Buttons -->
+                    <div class="action-section">
+                        <div class="qty-picker">
+                            <button class="qty-btn" id="qtyMinus">-</button>
+                            <input type="number" id="qtyInput" value="1" min="1" max="10" readonly>
+                            <button class="qty-btn" id="qtyPlus">+</button>
+                        </div>
+
+                        <div class="btn-group">
+                            <button class="add-cart-btn" id="modalAddToCartBtn">
+                                <i class="fa-solid fa-cart-shopping"></i> Add to Bag
+                            </button>
+                            <button class="buy-now-btn" id="modalBuyNowBtn">
+                                Buy Now
+                            </button>
+                            <button class="modal-wishlist-btn" id="modalWishlistBtn" title="Save to Wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Specifications Accordion -->
+                    <div class="specs-accordion">
+                        <details open>
+                            <summary><i class="fa-solid fa-shirt"></i> Fabric Composition & Care</summary>
+                            <p id="modalFabricText">80% Organic Heavyweight Cotton, 20% Recycled Polyester. Machine wash
+                                cold, dry flat.</p>
+                        </details>
+                        <details>
+                            <summary><i class="fa-solid fa-truck-fast"></i> Complimentary Worldwide Delivery & Returns
+                            </summary>
+                            <p>Free express delivery on orders over $100. Complimentary 30-day hassle-free returns on
+                                unworn apparel.</p>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Bag Drawer -->
+    <div class="drawer-backdrop" id="cartBackdrop"></div>
+    <aside class="drawer" id="cartDrawer" aria-label="Shopping Bag Drawer">
+        <div class="drawer-header">
+            <h3><i class="fa-solid fa-cart-shopping"></i> Your Shopping Bag (<span class="cart-count">0</span>)</h3>
+            <button class="drawer-close" id="cartCloseBtn">&times;</button>
+        </div>
+
+        <div class="drawer-body" id="cartItemsContainer">
+            <!-- Cart Line Items -->
+        </div>
+
+        <div class="drawer-footer" id="cartFooter">
+            <div class="promo-code-box">
+                <input type="text" id="promoInput" placeholder="Promo code (e.g. MON10)">
+                <button id="applyPromoBtn">Apply</button>
+            </div>
+            <div id="promoMessage"></div>
+
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="cartSubtotal">$0.00</span>
+                </div>
+                <div class="summary-row" id="discountRow" style="display: none;">
+                    <span>Discount</span>
+                    <span id="cartDiscount" class="discount-text">-$0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Express Shipping</span>
+                    <span id="cartShipping" style="color: #16a34a; font-weight: 600;">FREE</span>
+                </div>
+                <div class="summary-row total-row">
+                    <span>Total Amount</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+            </div>
+
+            <button class="checkout-btn" id="cartCheckoutBtn">
+                Proceed to Secure Checkout <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Wishlist Drawer -->
+    <div class="drawer-backdrop" id="wishlistBackdrop"></div>
+    <aside class="drawer" id="wishlistDrawer" aria-label="Wishlist Drawer">
+        <div class="drawer-header">
+            <h3><i class="fa-regular fa-heart"></i> Saved Items (<span class="wishlist-count">0</span>)</h3>
+            <button class="drawer-close" id="wishlistCloseBtn">&times;</button>
+        </div>
+        <div class="drawer-body" id="wishlistItemsContainer">
+            <!-- Wishlist Items -->
+        </div>
+    </aside>
+
+    <!-- Account & Orders Drawer -->
+    <div class="drawer-backdrop" id="accountBackdrop"></div>
+    <aside class="drawer" id="accountDrawer" aria-label="My Account Drawer">
+        <div class="drawer-header">
+            <h3><i class="fa-regular fa-user"></i> Account & Order History</h3>
+            <button class="drawer-close" id="accountCloseBtn">&times;</button>
+        </div>
+        <div class="drawer-body">
+            <div class="account-profile-card" id="accountProfileCard">
+                <div class="avatar" id="userAvatar"><i class="fa-solid fa-user"></i></div>
+                <div class="profile-info">
+                    <h4 id="userNameDisplay">Guest Visitor</h4>
+                    <p id="userEmailDisplay">Log in to view saved address & order history</p>
+                    <span class="badge vip-badge" id="userRoleBadge"><i class="fa-solid fa-sparkles"></i> Guest</span>
+                </div>
+            </div>
+
+            <div class="auth-action-box" id="authActionBox">
+                <button class="hero-btn primary full-width" id="openAuthModalBtn"><i
+                        class="fa-solid fa-right-to-bracket"></i> Sign In / Register</button>
+            </div>
+
+            <div class="logged-in-content hidden" id="loggedInContent">
+                <div class="account-tabs">
+                    <button class="acc-tab active" data-acc-tab="orders">Order History</button>
+                    <button class="acc-tab" data-acc-tab="addresses">Saved Address</button>
+                </div>
+
+                <div class="acc-tab-content" id="accOrdersTab">
+                    <div id="orderHistoryContainer">
+                        <!-- Dynamic order history list -->
+                    </div>
+                </div>
+
+                <div class="acc-tab-content hidden" id="accAddressesTab">
+                    <form id="savedAddressForm" class="address-card-form">
+                        <h5><i class="fa-solid fa-house-chimney"></i> Saved Shipping Address</h5>
+                        <p class="form-sub-text">Saved address will automatically pre-fill during checkout.</p>
+
+                        <div class="form-group">
+                            <label for="savedStreetAddress">Street Address</label>
+                            <input type="text" id="savedStreetAddress"
+                                placeholder="e.g. 124 Fashion Boulevard, Suite 400" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="savedCity">City</label>
+                                <input type="text" id="savedCity" placeholder="New York" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="savedZip">Postal Code</label>
+                                <input type="text" id="savedZip" placeholder="10001" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="hero-btn primary full-width" id="saveAddressBtn"><i
+                                class="fa-solid fa-floppy-disk"></i> Save Address</button>
+                    </form>
+                </div>
+
+                <div class="account-actions-footer">
+                    <button class="secondary-sm-btn full-width hidden" id="drawerAdminBtn"><i
+                            class="fa-solid fa-user-gear"></i> Open Admin Inventory Manager</button>
+                    <button class="logout-btn full-width" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i>
+                        Sign Out</button>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Checkout Modal -->
+    <div class="modal-backdrop" id="checkoutBackdrop">
+        <div class="checkout-modal" id="checkoutModal">
+            <div class="checkout-header">
+                <h2><i class="fa-solid fa-shield-halved"></i> Express Checkout</h2>
+                <button class="close" id="checkoutCloseBtn">&times;</button>
+            </div>
+
+            <form id="checkoutForm" class="checkout-body">
+                <div class="checkout-grid">
+                    <!-- Left: Form Inputs -->
+                    <div class="checkout-form-col">
+                        <h3>1. Shipping Information</h3>
+                        <div class="form-group">
+                            <label for="checkoutName">Full Name</label>
+                            <input type="text" id="checkoutName" required placeholder="Full Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkoutEmail">Email Address</label>
+                            <input type="email" id="checkoutEmail" required placeholder="your.email@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkoutAddress">Street Address</label>
+                            <input type="text" id="checkoutAddress" required placeholder="Street Address">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="checkoutCity">City</label>
+                                <input type="text" id="checkoutCity" required placeholder="City">
+                            </div>
+                            <div class="form-group">
+                                <label for="checkoutZip">Postal Code</label>
+                                <input type="text" id="checkoutZip" required placeholder="Postal Code">
+                            </div>
+                        </div>
+
+                        <h3>2. Payment Option</h3>
+                        <div class="payment-options">
+                            <label class="pay-option active" style="width: 100%; border-color: #111; cursor: default;">
+                                <input type="radio" name="payment" value="Cash on Delivery" checked style="accent-color: #111;">
+                                <span><i class="fa-solid fa-money-bill-wave"></i> Cash on Delivery (COD)</span>
+                            </label>
+                        </div>
+                        <p style="font-size: 12px; color: #666; margin-top: 8px;"><i class="fa-solid fa-circle-info"></i> Pay in cash when your luxury parcel arrives at your doorstep.</p>
+                    </div>
+
+                    <!-- Right: Summary Sidebar -->
+                    <div class="checkout-summary-col">
+                        <h3>Order Summary</h3>
+                        <div id="checkoutSummaryItems" class="checkout-items-list">
+                            <!-- Items summary -->
+                        </div>
+                        <div class="checkout-totals">
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span id="coSubtotal">₹0.00</span>
+                            </div>
+                            <div class="coupon-box" style="margin: 12px 0; display: flex; gap: 6px;">
+                                <input type="text" id="checkoutCouponCode" placeholder="Promo code (e.g. WELCOME10)" style="flex: 1; padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; text-transform: uppercase; font-size: 13px;">
+                                <button type="button" id="applyCouponBtn" style="padding: 8px 12px; background: #111; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 13px;">Apply</button>
+                            </div>
+                            <div id="couponDiscountRow" class="summary-row hidden" style="color: #2e7d32; font-weight: 500;">
+                                <span>Discount (<span id="couponCodeLabel"></span>)</span>
+                                <span id="coDiscount">-₹0.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Shipping</span>
+                                <span id="coShipping" style="color: #16a34a; font-weight: 600;">FREE</span>
+                            </div>
+                            <div class="summary-row total-row">
+                                <span>Grand Total</span>
+                                <span id="coTotal">₹0.00</span>
+                            </div>
+                        </div>
+                        <button type="submit" class="place-order-btn" id="placeOrderBtn">
+                            <i class="fa-solid fa-truck-ramp-box"></i> Place Order (Cash on Delivery)
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Receipt Modal -->
+    <div class="modal-backdrop" id="confirmationBackdrop">
+        <div class="confirmation-modal">
+            <div class="confirmation-icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h2>Order Placed Successfully!</h2>
+            <p class="conf-sub">Thank you for shopping at Visionsby_MON. Your custom couture order is being prepared.
+            </p>
+
+            <div class="receipt-box" id="receiptBox">
+                <div class="receipt-row">
+                    <span>Order Number:</span>
+                    <strong id="confOrderId">#MON-98231</strong>
+                </div>
+                <div class="receipt-row">
+                    <span>Estimated Delivery:</span>
+                    <strong id="confDeliveryDate">3 - 5 Business Days</strong>
+                </div>
+                <div class="receipt-row">
+                    <span>Total Paid:</span>
+                    <strong id="confTotalAmount">$174.00</strong>
+                </div>
+            </div>
+
+            <div class="conf-actions">
+                <button class="hero-btn primary" id="continueShoppingBtn">Continue Shopping</button>
+                <button class="hero-btn secondary" id="viewOrdersBtn">View Order History</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Size Guide Modal -->
+    <div class="modal-backdrop" id="sizeGuideBackdrop">
+        <div class="sizeguide-modal">
+            <div class="sizeguide-header">
+                <h3><i class="fa-solid fa-ruler-combined"></i> Visions Apparel Size Guide</h3>
+                <button class="close" id="sizeGuideCloseBtn">&times;</button>
+            </div>
+            <div class="sizeguide-body">
+                <table class="size-table">
+                    <thead>
+                        <tr>
+                            <th>Size</th>
+                            <th>Chest (Inches)</th>
+                            <th>Waist (Inches)</th>
+                            <th>Hips (Inches)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>XS</td>
+                            <td>32 - 34</td>
+                            <td>26 - 28</td>
+                            <td>34 - 36</td>
+                        </tr>
+                        <tr>
+                            <td>S</td>
+                            <td>35 - 37</td>
+                            <td>29 - 31</td>
+                            <td>37 - 39</td>
+                        </tr>
+                        <tr>
+                            <td>M</td>
+                            <td>38 - 40</td>
+                            <td>32 - 34</td>
+                            <td>40 - 42</td>
+                        </tr>
+                        <tr>
+                            <td>L</td>
+                            <td>41 - 43</td>
+                            <td>35 - 37</td>
+                            <td>43 - 45</td>
+                        </tr>
+                        <tr>
+                            <td>XL</td>
+                            <td>44 - 47</td>
+                            <td>38 - 41</td>
+                            <td>46 - 49</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth System Modal (Sign In / Register) -->
+    <div class="modal-backdrop" id="authBackdrop">
+        <div class="auth-modal" id="authModal">
+            <div class="auth-header">
+                <h3><i class="fa-solid fa-lock"></i> Visionsby_MON Member Portal</h3>
+                <button class="close" id="authCloseBtn">&times;</button>
+            </div>
+            <div class="auth-tabs">
+                <button class="auth-tab-btn active" id="authTabLogin">Sign In</button>
+                <button class="auth-tab-btn" id="authTabRegister">Create Account</button>
+            </div>
+
+            <div class="auth-body">
+                <!-- Sign In Form -->
+                <form id="loginForm" class="auth-form" autocomplete="off">
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" placeholder="your.email@example.com" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="new-password">
+                    </div>
+                    <button type="submit" class="hero-btn primary full-width"><i
+                            class="fa-solid fa-right-to-bracket"></i> Sign In to Account</button>
+                </form>
+
+                <!-- Create Account Form -->
+                <form id="registerForm" class="auth-form hidden" autocomplete="off">
+                    <div class="form-group">
+                        <label for="regName">Full Name</label>
+                        <input type="text" id="regName" placeholder="e.g. Jane Doe" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="regEmail">Email Address</label>
+                        <input type="email" id="regEmail" placeholder="jane@example.com" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="regPassword">Password</label>
+                        <input type="password" id="regPassword" placeholder="••••••••" required minlength="8" autocomplete="new-password">
+                        <div class="password-criteria-checklist" id="pwdChecklist">
+                            <span class="pwd-rule-item" id="ruleLength"><i class="fa-regular fa-circle"></i> 8+ Characters</span>
+                            <span class="pwd-rule-item" id="ruleCaps"><i class="fa-regular fa-circle"></i> 1 Capital Letter (A-Z)</span>
+                            <span class="pwd-rule-item" id="ruleNumber"><i class="fa-regular fa-circle"></i> 1 Numerical Digit (0-9)</span>
+                            <span class="pwd-rule-item" id="ruleSymbol"><i class="fa-regular fa-circle"></i> 1 Special Symbol (!@#$)</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="regAddress">Shipping Street Address (Optional)</label>
+                        <input type="text" id="regAddress" placeholder="124 Fashion Boulevard">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="regCity">City</label>
+                            <input type="text" id="regCity" placeholder="New York">
+                        </div>
+                        <div class="form-group">
+                            <label for="regZip">Postal Code</label>
+                            <input type="text" id="regZip" placeholder="10001">
+                        </div>
+                    </div>
+                    <button type="submit" class="hero-btn primary full-width"><i class="fa-solid fa-user-plus"></i>
+                        Create Account & Save Profile</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Inventory & Stock Management Modal -->
+    <div class="modal-backdrop" id="adminBackdrop">
+        <div class="admin-modal" id="adminModal">
+            <div class="admin-modal-header">
+                <div class="admin-header-title">
+                    <span class="badge admin-badge"><i class="fa-solid fa-shield-halved"></i> DATABASE CONTROL
+                        PANEL</span>
+                    <h2>Dress Inventory & Stock Management</h2>
+                </div>
+                <button class="close" id="adminCloseBtn">&times;</button>
+            </div>
+
+            <div class="admin-modal-body">
+                <!-- Quick Stats Dashboard -->
+                <div class="admin-stats-bar">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fa-solid fa-layer-group"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="statTotalItems">0</span>
+                            <span class="stat-label">Total Garments</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon alert"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="statLowStock">0</span>
+                            <span class="stat-label">Low / Out Stock</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon success"><i class="fa-solid fa-boxes-stacked"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="statTotalStock">0</span>
+                            <span class="stat-label">Total Stock Units</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon info"><i class="fa-solid fa-receipt"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="statTotalOrders">0</span>
+                            <span class="stat-label">Customer Orders</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-tabs-nav">
+                    <button class="admin-nav-tab active" data-admin-tab="inventory"><i
+                            class="fa-solid fa-boxes-stacked"></i> Stock Levels</button>
+                    <button class="admin-nav-tab" data-admin-tab="add-dress"><i class="fa-solid fa-plus"></i> Add Single Item</button>
+                    <button class="admin-nav-tab" data-admin-tab="bulk-add"><i class="fa-solid fa-file-import"></i> Bulk Garment Import</button>
+                    <button class="admin-nav-tab" data-admin-tab="orders"><i class="fa-solid fa-clipboard-list"></i> Customer Orders</button>
+                </div>
+
+                <!-- Tab 1: Live Stock Inventory Table -->
+                <div class="admin-tab-content" id="adminTabInventory">
+                    <div class="admin-table-toolbar">
+                        <span class="inventory-count-text" id="adminTotalCountDisplay">Loading inventory...</span>
+                        <button class="secondary-sm-btn" id="refreshAdminStockBtn"><i class="fa-solid fa-rotate"></i>
+                            Refresh Database</button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Title & Category</th>
+                                    <th>Price</th>
+                                    <th>Current Stock (Qty)</th>
+                                    <th>Stock Status</th>
+                                    <th>Add Stock / Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminInventoryTableBody">
+                                <!-- Dynamic rows populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Add New Garment Form -->
+                <div class="admin-tab-content hidden" id="adminTabAddDress">
+                    <form id="addDressForm" class="admin-form-grid">
+                        <div class="form-group">
+                            <label for="newDressTitle">Dress / Garment Title</label>
+                            <input type="text" id="newDressTitle" placeholder="e.g. Vintage Velvet Corset Dress"
+                                required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="newDressCategory">Category</label>
+                                <select id="newDressCategory" required>
+                                    <option value="dress">Dress & Skirts</option>
+                                    <option value="hoodie">Hoodies & Sweats</option>
+                                    <option value="jacket">Jackets & Coats</option>
+                                    <option value="shirt">Shirts & Tops</option>
+                                    <option value="pants">Trousers & Pants</option>
+                                    <option value="accessories">Accessories</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="newDressPrice">Price ($)</label>
+                                <input type="number" id="newDressPrice" step="0.01" placeholder="125.00" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="newDressStock">Initial Stock Quantity</label>
+                                <input type="number" id="newDressStock" min="0" value="10" required>
+                            </div>
+                        </div>
+
+                        <!-- Photo Upload & URL options -->
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-camera"></i> Garment Photo / Image</label>
+                            <div class="photo-upload-box">
+                                <div class="photo-upload-left">
+                                    <label for="newDressImageFile" class="photo-file-label">
+                                        <i class="fa-solid fa-cloud-arrow-up"></i> Upload Photo File
+                                    </label>
+                                    <input type="file" id="newDressImageFile" accept="image/*"
+                                        class="hidden-file-input">
+                                    <span class="or-divider">OR</span>
+                                    <input type="text" id="newDressImage"
+                                        placeholder="images/whitedress.jpeg or image URL"
+                                        value="images/whitedress.jpeg">
+                                </div>
+                                <div class="photo-preview-wrap">
+                                    <img id="newDressImagePreview" src="images/whitedress.jpeg" alt="Photo Preview">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="newDressFabric">Fabric & Material Details</label>
+                                <input type="text" id="newDressFabric"
+                                    placeholder="e.g. 100% Organic Silk. Dry clean only.">
+                            </div>
+                            <div class="form-group">
+                                <label for="newDressBadge">Badge Label</label>
+                                <input type="text" id="newDressBadge" placeholder="e.g. New Arrival, Bestseller"
+                                    value="New Arrival">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newDressDesc">Description</label>
+                            <textarea id="newDressDesc" rows="3"
+                                placeholder="Enter garment material details, fit, silhouette..."></textarea>
+                        </div>
+
+                        <button type="submit" class="hero-btn primary full-width"><i
+                                class="fa-solid fa-cloud-arrow-up"></i> Save Garment & Photos to MongoDB Atlas</button>
+                    </form>
+                </div>
+
+                <!-- Tab 3: Bulk Import Garments Payload -->
+                <div class="admin-tab-content hidden" id="adminTabBulkAdd">
+                    <div class="bulk-import-container">
+                        <div class="bulk-toolbar">
+                            <div class="bulk-toolbar-info">
+                                <h4><i class="fa-solid fa-file-code"></i> Bulk Import Garments Payload</h4>
+                                <p>Upload a JSON/CSV file or paste JSON array data to insert multiple garments into the catalog at once.</p>
+                            </div>
+                            <div class="bulk-actions">
+                                <button type="button" class="secondary-sm-btn" id="downloadSampleJsonBtn">
+                                    <i class="fa-solid fa-download"></i> Sample JSON Template
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bulk-upload-dropzone">
+                            <label for="bulkJsonFileInput" class="bulk-file-label">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                <span>Click to choose or drop a <strong>.JSON / .CSV</strong> file</span>
+                            </label>
+                            <input type="file" id="bulkJsonFileInput" accept=".json,.csv,.txt" class="hidden-file-input">
+                        </div>
+
+                        <div class="form-group" style="margin-top: 14px;">
+                            <label for="bulkJsonTextarea">OR Paste JSON Array Data</label>
+                            <textarea id="bulkJsonTextarea" rows="8" placeholder='[
+  {
+    "title": "Satin Evening Dress",
+    "category": "dress",
+    "price": 1850,
+    "stock": 12,
+    "image": "images/whitedress.jpeg",
+    "fabric": "100% Silk Satin",
+    "description": "Ethereal silk evening gown."
+  }
+]'></textarea>
+                        </div>
+
+                        <div class="bulk-validation-bar" id="bulkValidationBar">
+                            <span id="bulkStatusText"><i class="fa-solid fa-circle-info"></i> Ready to parse payload.</span>
+                            <button type="button" class="secondary-sm-btn" id="validateBulkJsonBtn">
+                                <i class="fa-solid fa-check-double"></i> Validate Payload & Preview
+                            </button>
+                        </div>
+
+                        <button type="button" class="hero-btn primary full-width" id="submitBulkImportBtn" style="margin-top: 14px;">
+                            <i class="fa-solid fa-file-import"></i> Execute Bulk Import into Database
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tab 4: Customer Order Fulfillment -->
+                <div class="admin-tab-content hidden" id="adminTabOrders">
+                    <div class="admin-table-toolbar">
+                        <span class="inventory-count-text" id="adminOrderCountDisplay">Loading customer orders...</span>
+                        <button class="secondary-sm-btn" id="refreshAdminOrdersBtn"><i class="fa-solid fa-rotate"></i>
+                            Refresh Orders</button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer & Email</th>
+                                    <th>Items Ordered</th>
+                                    <th>Total Amount</th>
+                                    <th>Payment Method</th>
+                                    <th>Fulfillment Status & Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminOrdersTableBody">
+                                <!-- Dynamic order rows populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+
+    <!-- Edit Garment Modal -->
+    <div class="modal-backdrop" id="editDressBackdrop">
+        <div class="admin-modal" id="editDressModal" style="max-width: 650px;">
+            <div class="admin-modal-header">
+                <h2><i class="fa-solid fa-pen-to-square"></i> Edit Garment Item & Quantities</h2>
+                <button class="close" id="editDressCloseBtn">&times;</button>
+            </div>
+
+            <form id="editDressForm" class="admin-form-grid">
+                <input type="hidden" id="editDressId">
+                <div class="form-group">
+                    <label for="editDressTitle">Garment Title</label>
+                    <input type="text" id="editDressTitle" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editDressCategory">Category</label>
+                        <select id="editDressCategory" required>
+                            <option value="dress">Dress & Skirts</option>
+                            <option value="hoodie">Hoodies & Sweats</option>
+                            <option value="jacket">Jackets & Coats</option>
+                            <option value="shirt">Shirts & Tops</option>
+                            <option value="pants">Trousers & Pants</option>
+                            <option value="accessories">Accessories</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editDressPrice">Price ($)</label>
+                        <input type="number" id="editDressPrice" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editDressStock">Stock Quantity</label>
+                        <input type="number" id="editDressStock" min="0" required>
+                    </div>
+                </div>
+
+                <!-- Photo Upload & URL options for Edit -->
+                <div class="form-group">
+                    <label><i class="fa-solid fa-camera"></i> Update Photo / Image</label>
+                    <div class="photo-upload-box">
+                        <div class="photo-upload-left">
+                            <label for="editDressImageFile" class="photo-file-label">
+                                <i class="fa-solid fa-cloud-arrow-up"></i> Upload New Photo
+                            </label>
+                            <input type="file" id="editDressImageFile" accept="image/*" class="hidden-file-input">
+                            <span class="or-divider">OR</span>
+                            <input type="text" id="editDressImage" placeholder="Photo URL">
+                        </div>
+                        <div class="photo-preview-wrap">
+                            <img id="editDressImagePreview" src="" alt="Photo Preview">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editDressFabric">Fabric Details</label>
+                        <input type="text" id="editDressFabric">
+                    </div>
+                    <div class="form-group">
+                        <label for="editDressBadge">Badge Label</label>
+                        <input type="text" id="editDressBadge">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="editDressDesc">Description</label>
+                    <textarea id="editDressDesc" rows="3"></textarea>
+                </div>
+
+                <button type="submit" class="hero-btn primary full-width"><i class="fa-solid fa-floppy-disk"></i> Update
+                    Item in MongoDB Atlas</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

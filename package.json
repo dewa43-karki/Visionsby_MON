@@ -8,7 +8,7 @@
     "start:client": "cd client && npm start",
     "dev:server": "cd server && npm run dev",
     "dev:client": "cd client && npm run dev",
-    "dev": "npm run dev:server"
+    "dev": "npx concurrently --kill-others \"npm run dev:server\" \"npm run dev:client\""
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

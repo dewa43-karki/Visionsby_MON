@@ -18,7 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 // Serve static frontend assets (HTML, CSS, JS, Images)
-const clientPath = path.resolve(__dirname, '..');
+const clientPath = path.resolve(__dirname, '../client');
 app.use(express.static(clientPath));
 
 // Configure Mongoose to not hang on queries when disconnected
@@ -47,12 +47,17 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
-// Helper middleware: Require Admin Role
+// Helper middleware: Require Admin Role (Strictly restricted to admin@visionsbymon.com)
 const requireAdmin = (req, res, next) => {
-  if (req.user && req.user.role === 'admin') {
+  if (
+    req.user &&
+    req.user.role === 'admin' &&
+    req.user.email &&
+    req.user.email.toLowerCase() === 'admin@visionsbymon.com'
+  ) {
     next();
   } else {
-    res.status(403).json({ error: 'Admin privileges required' });
+    res.status(403).json({ error: 'Access denied: Admin panel controls are strictly restricted to admin@visionsbymon.com' });
   }
 };
 
@@ -81,16 +86,49 @@ function formatDressRow(row) {
 // Local in-memory fallback users for offline DB mode
 const localUsersMap = new Map();
 
-// Helper: Validate Password Security Criteria (8+ chars, 1 uppercase, 1 special symbol)
+// Seed default admin and customer into localUsersMap for offline mode
+(async () => {
+  try {
+    const adminHash = await bcrypt.hash('admin123', 10);
+    const customerHash = await bcrypt.hash('user123', 10);
+    localUsersMap.set('admin@visionsbymon.com', {
+      id: 'user_admin_visionsbymon_com',
+      name: 'Admin Mon',
+      email: 'admin@visionsbymon.com',
+      password: adminHash,
+      role: 'admin',
+      address: '124 Fashion Boulevard',
+      city: 'New York',
+      zip: '10001'
+    });
+    localUsersMap.set('customer@visionsbymon.com', {
+      id: 'user_customer_visionsbymon_com',
+      name: 'Jane Doe',
+      email: 'customer@visionsbymon.com',
+      password: customerHash,
+      role: 'user',
+      address: '124 Fashion Boulevard, Suite 400',
+      city: 'New York',
+      zip: '10001'
+    });
+  } catch (e) {
+    console.error('Local user seeding error:', e);
+  }
+})();
+
+// Helper: Validate Password Security Criteria (8+ chars, 1 uppercase letter, 1 numerical digit, 1 special symbol)
 function validatePassword(password) {
   if (!password || password.length < 8) {
     return 'Password must be at least 8 characters long.';
   }
   if (!/[A-Z]/.test(password)) {
-    return 'Password must contain at least one uppercase letter (A-Z).';
+    return 'Password must contain at least one capital letter (A-Z).';
+  }
+  if (!/[0-9]/.test(password)) {
+    return 'Password must contain at least one numerical digit (0-9).';
   }
   if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
-    return 'Password must contain at least one special character (!@#$%^&*).';
+    return 'Password must contain at least one special symbol (!@#$%^&*).';
   }
   return null;
 }
@@ -104,6 +142,11 @@ app.post('/api/auth/register', async (req, res) => {
     }
 
     const lowerEmail = email.toLowerCase().trim();
+
+    // Reserved Super-Admin Email Protection
+    if (lowerEmail === 'admin@visionsbymon.com') {
+      return res.status(400).json({ error: 'The email admin@visionsbymon.com is a reserved administrator account. Please sign in instead.' });
+    }
 
     // 1. FIRST PRIORITY: Check duplicate email
     if (mongoose.connection.readyState === 1) {
@@ -163,7 +206,7 @@ app.post('/api/auth/register', async (req, res) => {
   }
 });
 
-// Login User / Admin
+// Login User / Admin (Only registered users can log in)
 app.post('/api/auth/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -171,33 +214,30 @@ app.post('/api/auth/login', async (req, res) => {
       return res.status(400).json({ error: 'Email and password are required' });
     }
 
+    const lowerEmail = email.toLowerCase().trim();
+
     if (mongoose.connection.readyState !== 1) {
-      const lowerEmail = email.toLowerCase();
       const localUser = localUsersMap.get(lowerEmail);
-      if (localUser) {
-        const isValid = await bcrypt.compare(password, localUser.password);
-        if (isValid) {
-          const userProfile = { id: localUser.id, name: localUser.name, email: localUser.email, role: localUser.role, address: localUser.address, city: localUser.city, zip: localUser.zip };
-          const token = jwt.sign({ id: userProfile.id, email: userProfile.email, role: userProfile.role }, JWT_SECRET, { expiresIn: '7d' });
-          return res.json({ token, user: userProfile, message: 'Login successful' });
-        }
+      if (!localUser) {
+        return res.status(401).json({ error: 'User is not registered. Please create an account first.' });
       }
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const userId = 'user_' + lowerEmail.replace(/[^a-z0-9]/g, '_');
-      const mockUser = { id: userId, name: email.split('@')[0], email: lowerEmail, role: 'user', address: '', city: '', zip: '' };
-      localUsersMap.set(lowerEmail, { ...mockUser, password: hashedPassword });
-      const token = jwt.sign({ id: mockUser.id, email: mockUser.email, role: mockUser.role }, JWT_SECRET, { expiresIn: '7d' });
-      return res.json({ token, user: mockUser, message: 'Login successful' });
+      const isValid = await bcrypt.compare(password, localUser.password);
+      if (!isValid) {
+        return res.status(401).json({ error: 'Invalid password. Please check your credentials.' });
+      }
+      const userProfile = { id: localUser.id, name: localUser.name, email: localUser.email, role: localUser.role, address: localUser.address, city: localUser.city, zip: localUser.zip };
+      const token = jwt.sign({ id: userProfile.id, email: userProfile.email, role: userProfile.role }, JWT_SECRET, { expiresIn: '7d' });
+      return res.json({ token, user: userProfile, message: 'Login successful' });
     }
 
-    const user = await User.findOne({ email: email.toLowerCase() });
+    const user = await User.findOne({ email: lowerEmail });
     if (!user) {
-      return res.status(401).json({ error: 'Invalid email or password' });
+      return res.status(401).json({ error: 'User is not registered. Please create an account first.' });
     }
 
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) {
-      return res.status(401).json({ error: 'Invalid email or password' });
+      return res.status(401).json({ error: 'Invalid password. Please check your credentials.' });
     }
 
     const userProfile = {
@@ -215,11 +255,7 @@ app.post('/api/auth/login', async (req, res) => {
     res.json({ token, user: userProfile, message: 'Login successful' });
   } catch (err) {
     console.error('Login error notice:', err.message);
-    const lowerEmail = req.body.email ? req.body.email.toLowerCase() : 'user@example.com';
-    const userId = 'user_' + lowerEmail.replace(/[^a-z0-9]/g, '_');
-    const mockUser = { id: userId, name: lowerEmail.split('@')[0], email: lowerEmail, role: 'user', address: '', city: '', zip: '' };
-    const token = jwt.sign({ id: mockUser.id, email: mockUser.email, role: mockUser.role }, JWT_SECRET, { expiresIn: '7d' });
-    res.json({ token, user: mockUser, message: 'Login successful' });
+    res.status(500).json({ error: 'Authentication service error. Please try again.' });
   }
 });
 
@@ -567,6 +603,84 @@ app.post('/api/admin/dresses', authenticateToken, requireAdmin, async (req, res)
   } catch (err) {
     console.error('Admin add dress error:', err);
     res.status(500).json({ error: 'Failed to add dress' });
+  }
+});
+
+// Admin: Bulk insert dresses into catalog (JSON / CSV bulk import)
+app.post('/api/admin/dresses/bulk', authenticateToken, requireAdmin, async (req, res) => {
+  try {
+    const { dresses } = req.body;
+    if (!dresses || !Array.isArray(dresses) || dresses.length === 0) {
+      return res.status(400).json({ error: 'Valid array of dresses is required' });
+    }
+
+    const itemsToInsert = [];
+    let counter = Date.now();
+
+    for (const item of dresses) {
+      if (!item.title || !item.category || !item.price || !item.image) {
+        continue;
+      }
+
+      const itemId = item.id || `mon-${(counter++).toString().slice(-6)}`;
+      const formattedItem = {
+        id: itemId,
+        title: item.title,
+        category: item.category,
+        price: Number(item.price),
+        oldPrice: item.oldPrice ? Number(item.oldPrice) : null,
+        rating: item.rating ? Number(item.rating) : 5.0,
+        reviews: item.reviews ? Number(item.reviews) : 0,
+        badge: item.badge || 'New Arrival',
+        image: item.image,
+        images: Array.isArray(item.images) && item.images.length ? item.images : [item.image],
+        description: item.description || '',
+        fabric: item.fabric || '',
+        stock: item.stock !== undefined ? Number(item.stock) : 10,
+        sizes: Array.isArray(item.sizes) && item.sizes.length ? item.sizes : ['S', 'M', 'L'],
+        colors: Array.isArray(item.colors) ? item.colors : []
+      };
+
+      itemsToInsert.push(formattedItem);
+    }
+
+    if (itemsToInsert.length === 0) {
+      return res.status(400).json({ error: 'No valid garment items found in payload. Each item must contain title, category, price, and image.' });
+    }
+
+    if (mongoose.connection.readyState === 1) {
+      const insertedDocs = [];
+      for (const doc of itemsToInsert) {
+        const updated = await Dress.findOneAndUpdate(
+          { id: doc.id },
+          doc,
+          { upsert: true, new: true, setDefaultsOnInsert: true }
+        );
+        insertedDocs.push(formatDressRow(updated));
+      }
+      return res.status(201).json({
+        message: `Successfully imported ${insertedDocs.length} garment items into database!`,
+        insertedCount: insertedDocs.length,
+        dresses: insertedDocs
+      });
+    } else {
+      itemsToInsert.forEach(item => {
+        const idx = initialDresses.findIndex(d => d.id === item.id);
+        if (idx !== -1) {
+          initialDresses[idx] = item;
+        } else {
+          initialDresses.push(item);
+        }
+      });
+      return res.status(201).json({
+        message: `Successfully imported ${itemsToInsert.length} garment items into local catalog!`,
+        insertedCount: itemsToInsert.length,
+        dresses: itemsToInsert
+      });
+    }
+  } catch (err) {
+    console.error('Admin bulk add error:', err);
+    res.status(500).json({ error: err.message || 'Failed to bulk import garments' });
   }
 });
 
